@@ -16,9 +16,14 @@ const campgroundSchema = new Schema({
     reviews: [{
         type: Schema.Types.ObjectId,
         ref: 'Review'
-    }]
+    }],
+    author: {
+        type: Schema.Types.ObjectId,
+        ref: 'User'
+    }
 })
 
+// delete reviews of a campground
 campgroundSchema.post('findOneAndRemove', async function (doc) {
     if (doc) {
         await Review.deleteMany({
