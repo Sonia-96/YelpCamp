@@ -1,3 +1,5 @@
+const User = require('../models/user');
+
 module.exports.renderRegister = (req, res) => {
     res.render("users/register");
 }
@@ -14,7 +16,7 @@ module.exports.register = async (req, res, next) => {
         }) // 注册后自动登录
     } catch (err) {
         req.flash('error', err.message);
-        res.redirect('register');
+        res.redirect('/register');
     }
 }
 

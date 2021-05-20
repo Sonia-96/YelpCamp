@@ -2,22 +2,17 @@
 <div class="row">
     <h1 class="text-center">New Campground</h1>
     <div class="col-6 offset-3">
-        <form action="/campgrounds" method="POST" novalidate class="validated-form">
+        <!-- enctype="multipart/form-data": The type that allows file <input> element(s) to upload file data. -->
+        <form action="/campgrounds" method="POST" novalidate class="validated-form" enctype="multipart/form-data">
             <div class="mb-3">
                 <label class="form-label" for="title">Title</label>
-                <input class="form-control" type="text" name="title" id="title" required>
+                <input class="form-control" type="text" name="campground[title]" id="title" required>
                 <div class="valid-feedback">Looks good!</div>
             </div>
 
             <div class="mb-3">
                 <label class="form-label" for="location">Location</label>
-                <input class="form-control" type="text" name="location" id="location" required>
-                <div class="valid-feedback">Looks good!</div>
-            </div>
-
-            <div class="mb-3">
-                <label for="image" class="form-label">Image url</label>
-                <input type="text" class="form-control" name="image" id="image" required>
+                <input class="form-control" type="text" name="campground[location]" id="location" required>
                 <div class="valid-feedback">Looks good!</div>
             </div>
 
@@ -25,7 +20,7 @@
                 <label for="price" class="form-label">Campground Price</label>
                 <div class="input-group">
                     <span class="input-group-text" id="price-label">$</span>
-                    <input type="text" class="form-control" id="price" name="price" aria-label="price"
+                    <input type="text" class="form-control" id="price" name="campground[price]" aria-label="price"
                         placeholder="0.00" aria-describedby="price-label" required>
                 </div>
                 <div class="valid-feedback">Looks good!</div>
@@ -33,8 +28,16 @@
 
             <div class="mb-3">
                 <label for="description" class="form-label">Description</label>
-                <textarea class="form-control" name="description" id="description"  required></textarea>
+                <textarea class="form-control" name="campground[description]" id="description"  required></textarea>
                 <div class="valid-feedback">Looks good!</div>
+            </div>
+
+            <div class="mb-3">
+                <label class="form-label">Choose Image(s)</label>
+                <div class="custom-file">
+                    <input class="form-control custom-file-input" type="file" id="image" name="image" multiple>
+                    <label for="image" class="form-label custom-file-label"></label>
+                </div>
             </div>
 
             <div class="mb-3">
