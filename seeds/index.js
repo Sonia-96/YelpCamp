@@ -3,6 +3,13 @@ const Campground = require('../models/campground');
 const cities = require('./cities');
 const {descriptors, places} = require('./seedHelpers');
 
+if (process.env.NODE_ENV !== "production") {
+    require('dotenv').config();
+}
+const mbxGeocoding = require('@mapbox/mapbox-sdk/services/geocoding');
+const mapBoxToken = process.env.MAPBOX_TOKEN;
+const geocoder = mbxGeocoding({accessToken: mapBoxToken});
+
 mongoose.connect('mongodb://localhost:27017/yelpCamp', {
     useNewUrlParser: true, 
     useCreateIndex: true,
@@ -23,7 +30,7 @@ const seedDB = async function() {
         const random = Math.floor(Math.random() * 1000);
         const camp = new Campground({
             author: '609f853d24f24709d8f6c006',
-            location: `${cities[i].city}, ${cities[i].state}`,
+            location: `${cities[random].city}, ${cities[random].state}`,
             title: `${sample(descriptors)} ${sample(places)}`,
             images: [
                 {
@@ -38,6 +45,11 @@ const seedDB = async function() {
             price: Math.floor(Math.random() * 30) + 10,
             description: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Esse nemo eius voluptatem quod omnis earum minima quibusdam, asperiores accusantium? Itaque quo sed quibusdam possimus ullam facere, dignissimos aliquid magni officia.'
         });
+        const geoData = await geocoder.forwardGeocode({
+            query: camp.location,
+            limit: 1
+        }).send();
+        camp.geometry = geoData.body.features[0].geometry;
         await camp.save();
     }
 }
