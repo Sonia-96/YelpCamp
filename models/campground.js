@@ -11,6 +11,8 @@ ImageSchema.virtual('thumbnail').get(function() {
     return this.url.replace('/upload', '/upload/w_200');
 })
 
+const opts = {toJSON: {virtuals: true}};
+
 const campgroundSchema = new Schema({
     title: {
         type: String,
@@ -39,7 +41,7 @@ const campgroundSchema = new Schema({
         type: Schema.Types.ObjectId,
         ref: 'User'
     }
-})
+}, opts);
 
 // delete reviews of a campground
 campgroundSchema.post('findOneAndRemove', async function (doc) {
@@ -50,6 +52,13 @@ campgroundSchema.post('findOneAndRemove', async function (doc) {
             }
         })
     }
+})
+
+campgroundSchema.virtual('properties.popUpMarkup').get(function() {
+    return `
+    <strong><a href="/campgrounds/${this._id}">${this.title}</a></strong>
+    <p>${this.description.substring(0, 30)}...</p>
+    `
 })
 
 module.exports = mongoose.model('Campground', campgroundSchema);
