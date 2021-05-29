@@ -27,7 +27,7 @@ mongoose.connect(dbUrl, {
     useCreateIndex: true,
     useUnifiedTopology: true,
     useFindAndModify: false
-})
+});
 
 const db = mongoose.connection;
 db.on("error", console.error.bind(console, "connection error:"));
@@ -154,6 +154,6 @@ app.use((err, req, res, next) => {
 
 
 const port = process.env.PORT || 8080;
-app.listen(port, (req, res) => {
-    console.log("Serving on port 8080!");
+app.listen(port, () => {
+    console.log(`Serving on port ${port}!`);
 })
