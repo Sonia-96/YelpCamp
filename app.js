@@ -19,7 +19,8 @@ const helmet = require("helmet");
 const usersRoute = require('./routes/users');
 const campgroundsRoute = require('./routes/campgrounds');
 const reviewsRoute = require('./routes/reviews');
-const MongoStore = require('connect-mongo');
+// const MongoStore = require('connect-mongo');
+const MongoDBStore = require("connect-mongo")(session);
 const dbUrl = process.env.DB_URL || 'mongodb://localhost:27017/yelpCamp';
 
 mongoose.connect(dbUrl, {
@@ -43,17 +44,25 @@ app.set("views", path.join(__dirname, 'views'));
 app.use(methodOverride('_method'));
 app.use(express.urlencoded({ extended: true }));
 app.use(express.static(path.join(__dirname, 'public')));
-app.use(mongoSanitize());
+app.use(mongoSanitize({
+    replaceWith: '_'
+}));
 
 const secret = process.env.SECRET || 'this is a secret';
 
-const store = MongoStore.create({
-    mongoUrl: dbUrl,
-    crypto: {
-        secret 
-    },
-    touchAfter: 24 * 3600
-})
+// const store = MongoStore.create({
+//     mongoUrl: dbUrl,
+//     crypto: {
+//         secret 
+//     },
+//     touchAfter: 24 * 3600
+// })
+
+const store = new MongoDBStore({
+    url: dbUrl,
+    secret,
+    touchAfter: 24 * 60 * 60
+});
 
 store.on("error", function(e) {
     console.log("Session Store Error", e);
