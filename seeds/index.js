@@ -1,9 +1,11 @@
 const mongoose = require('mongoose');
 const Campground = require('../models/campground');
 const cities = require('./cities');
+const Images = require('./images');
 const {descriptors, places} = require('./seedHelpers');
+const dbUrl = process.env.DB_URL || 'mongodb://localhost:27017/yelpCamp';
 
-mongoose.connect('mongodb://localhost:27017/yelpCamp', {
+mongoose.connect(dbUrl, {
     useNewUrlParser: true, 
     useCreateIndex: true,
     useUnifiedTopology: true
@@ -19,8 +21,18 @@ const sample = array => array[Math.floor(Math.random() * array.length)];
 
 const seedDB = async function() {
     await Campground.deleteMany({});
+    let prevImg1 = -1;
     for (let i = 0; i < 300; i++) {
         const random = Math.floor(Math.random() * 1000);
+        let img1 = Math.floor(Math.random() * Images.length);
+        while (img1 === prevImg1) {
+            img1 = Math.floor(Math.random() * Images.length);
+        }
+        prevImg1 = img1;
+        let img2 = Math.floor(Math.random() * Images.length);
+        while (img2 === img1) {
+            img2 = Math.floor(Math.random() * Images.length);
+        }
         const campground = new Campground({
             author: '609f853d24f24709d8f6c006',
             location: `${cities[random].city}, ${cities[random].state}`,
@@ -29,16 +41,7 @@ const seedDB = async function() {
                 coordinates: [cities[random].longitude, cities[random].latitude]
             },
             title: `${sample(descriptors)} ${sample(places)}`,
-            images: [
-                {
-                    url: 'https://res.cloudinary.com/db0eykdf8/image/upload/v1621326143/YelpCamp/xfz3mnqp5fv7iba0qhwq.jpg',
-                    filename: 'YelpCamp/xfz3mnqp5fv7iba0qhwq'
-                },
-                {
-                    url: 'https://res.cloudinary.com/db0eykdf8/image/upload/v1621326144/YelpCamp/tlybfuxihosqfdgk4qt8.jpg',
-                    filename: 'YelpCamp/tlybfuxihosqfdgk4qt8'
-                }
-            ],
+            images: [Images[img1], Images[img2]],
             price: Math.floor(Math.random() * 30) + 10,
             description: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Esse nemo eius voluptatem quod omnis earum minima quibusdam, asperiores accusantium? Itaque quo sed quibusdam possimus ullam facere, dignissimos aliquid magni officia.'
         });
