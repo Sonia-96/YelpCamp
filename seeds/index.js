@@ -2,6 +2,7 @@ const mongoose = require('mongoose');
 const Campground = require('../models/campground');
 const cities = require('./cities');
 const Images = require('./images');
+const Users = require('./users');
 const {descriptors, places} = require('./seedHelpers');
 
 if (process.env.NODE_ENV !== 'production') {
@@ -37,8 +38,9 @@ const seedDB = async function() {
         while (img2 === img1) {
             img2 = Math.floor(Math.random() * Images.length);
         }
+        const user = Math.floor(Math.random() * Users.length);
         const campground = new Campground({
-            author: '609f853d24f24709d8f6c006',
+            author: Users[user],
             location: `${cities[random].city}, ${cities[random].state}`,
             geometry: {
                 type: 'Point',
