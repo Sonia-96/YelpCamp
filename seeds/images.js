@@ -84,10 +84,6 @@ module.exports = [
         filename: 'YelpCamp/wolf-wolves-snow-wolf-landscape-985ca149f06cd03b9f0ed8dfe326afdb_kelddr'
     },
     {
-        url: 'https://res.cloudinary.com/db0eykdf8/image/upload/v1622290496/YelpCamp/photo-1504106379193-10da019d1e9e_1_edgzpy.jpg',
-        filename: 'YelpCamp/photo-1504106379193-10da019d1e9e_1_edgzpy'
-    },
-    {
         url: 'https://res.cloudinary.com/db0eykdf8/image/upload/v1622290495/YelpCamp/cosmea-flower-plant-cosmos-a3d1a437edd247f60e9943e83bb960ea_mspxj0.jpg',
         filename: 'YelpCamp/cosmea-flower-plant-cosmos-a3d1a437edd247f60e9943e83bb960ea_mspxj0'
     },
@@ -118,6 +114,9 @@ module.exports = [
     {
         url: 'https://res.cloudinary.com/db0eykdf8/image/upload/v1622290971/YelpCamp/5e5272dcgy1gf83hp5wpwj24n433k4qw_by69pd.jpg',
         filename: 'YelpCamp/5e5272dcgy1gf83hp5wpwj24n433k4qw_by69pd'
+    },
+    {
+        url: 'https://res.cloudinary.com/db0eykdf8/image/upload/v1622292012/YelpCamp/%E5%BE%AE%E4%BF%A1%E5%9B%BE%E7%89%87_20190617134853_lorhfd.jpg',
+        filename: 'YelpCamp/%E5%BE%AE%E4%BF%A1%E5%9B%BE%E7%89%87_20190617134853_lorhfd'
     }
-
 ];
