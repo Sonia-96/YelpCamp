@@ -6,21 +6,21 @@ Try it: https://stark-stream-80494.herokuapp.com
 
 ## Features
 
+### Responsive design
+
 ![homepage](images/homepage.jpg)
 
-<center><strong>Responsive design, using Bootstrap5</strong></center>
+### Index page of campgrounds with a ClusterMap
 
 ![campground index page](images/index-page.jpg)
 
-<center><strong>Index page of campgrounds with a ClusterMap</strong></center>
+### Campground details and its reviews
 
 ![campground details](images/campground-details.jpg)
 
-<center><strong>Campground details and its reviews</strong></center>
+### Making new campground and editing previous posts (authentication required)
 
 ![create and edit campgrounds](images/create-and-edit.jpg)
-
-<center><strong>Making new campground and editing previous posts (authentication required)</strong></center>
 
 ## Implementation
 
